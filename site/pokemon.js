@@ -12,24 +12,29 @@ function addPokemonDetails(pokemon) {
                                 </figure>
 
                                 <h2>Abilities</h2>
-                                ${addPokemonAbilities()}`
+                                `
 
 }
 
-function addPokemonAbilities() {
+function addPokemonAbilities(pokemon) {
     const abilities = document.createElement("ul")
     abilities.classList.add("abilities")
     pokemonDetails.append(abilities)
-    // const li = document.createElement("li")
-    // pokemon.abilities.forEach(ability => {
-    //     li.innerHTML = `<span class="ability-name">${ability.ability.name}</span>
-    //         <span class="ability-short-description">${fetch(ability.ability.url).then(response => { return response.json() }).then(parsedResponse => { return parsedResponse.effect_entries[0].short_effect })}</span>`
-    //     abilities.append(li)
-    //     console.log(li)
-    // })
+    pokemon.abilities.forEach(ability => {
+        const li = document.createElement("li")
+        li.innerHTML = `<span class="ability-name">${ability.ability.name}</span>
+            <span class="ability-short-description">${getAbilityDescription(ability)}</span>`
+        abilities.append(li)
+    })
 }
 
-console.log(addPokemonAbilities())
+function getAbilityDescription(ability) {
+    fetch(ability.ability.url).then(response => {
+        return response.json()
+    }).then(parsedResponse => {
+        return parsedResponse.effect_entries[0].short_effect
+    })
+}
 
 const url = new URL(window.location)
 const queryString = new URLSearchParams(url.search)
@@ -38,7 +43,7 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
         return response.json()
     }).then(parsedResponse => {
         loading.classList.add("hidden")
-        console.log(parsedResponse)
         addPokemonDetails(parsedResponse)
+        addPokemonAbilities(parsedResponse)
     })
 
