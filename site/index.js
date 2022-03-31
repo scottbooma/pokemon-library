@@ -1,3 +1,4 @@
+
 const pokemon = document.querySelector(".pokemon")
 const loading = document.querySelector(".loading")
 const url = "https://pokeapi.co/api/v2/pokemon?limit=50"
@@ -29,8 +30,9 @@ fetch(url).then(response => {
     const fetches = urls.map(url => fetch(url).then(response => response.json()))
     return Promise.all(fetches)
 }).then(responses => {
-    loading.classList.add(".hidden")
+    loading.classList.add("hidden")
     responses.forEach(response => {
         addPokemonListing(response)
     })
 })
+
