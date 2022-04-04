@@ -11,13 +11,19 @@ const url = "https://pokeapi.co/api/v2/pokemon?limit=50"
 //     }
 // })
 
+function titleCase(string) {
+    return string.toLowerCase().split("-").map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1)
+    }).join(" ")
+}
+
 function addPokemonListing(response) {
     const li = document.createElement("li")
     li.innerHTML = `
             <div class="pokemon-listing">
         <figure>
-            <img src=${response.sprites.front_default} alt=${response.name} />
-            <figcaption><a href="pokemon.html?pokemon=${response.id}">${response.name}</a></figcaption>
+            <img src=${response.sprites.front_default} alt=${titleCase(response.name)} />
+            <figcaption><a href="pokemon.html?pokemon=${response.id}">${titleCase(response.name)}</a></figcaption>
         </figure>
         </div>`
     pokemon.append(li)
