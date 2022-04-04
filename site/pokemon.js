@@ -17,23 +17,22 @@ function addPokemonDetails(pokemon) {
 }
 
 function addPokemonAbilities(pokemon) {
-    const abilities = document.createElement("ul")
-    abilities.classList.add("abilities")
-    pokemonDetails.append(abilities)
-    pokemon.abilities.forEach(ability => {
-        const li = document.createElement("li")
-        li.innerHTML = `<span class="ability-name">${ability.ability.name}</span>
-            <span class="ability-short-description">${getAbilityDescription(ability)}</span>`
-        abilities.append(li)
-    })
-}
-
-function getAbilityDescription(ability) {
-    fetch(ability.ability.url).then(response => {
-        return response.json()
-    }).then(parsedResponse => {
-        return parsedResponse.effect_entries[0].short_effect
-    })
+    const abilitiesList = document.createElement("ul")
+    abilitiesList.classList.add("abilities")
+    pokemonDetails.append(abilitiesList)
+    Promise.all(pokemon.abilities
+        .map(ability => ability.ability.url)
+        .map(url => fetch(url)
+            .then(response => response.json())))
+        .then(responses => responses.forEach(response => {
+            const li = document.createElement("li")
+            li.innerHTML = `
+                <span class="ability-name">${response.name}</span>
+                <span class="ability-short-description">${response.effect_entries.find(effect => {
+                return effect.language.name === "en"
+            }).short_effect}</span>`
+            abilitiesList.append(li)
+        }))
 }
 
 const url = new URL(window.location)
