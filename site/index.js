@@ -20,12 +20,12 @@ function titleCase(string) {
 function addPokemonListing(response) {
     const li = document.createElement("li")
     li.innerHTML = `
-            <div class="pokemon-listing">
-        <figure>
-            <img src=${response.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(response.name)} />
-            <figcaption><a href="pokemon.html?pokemon=${response.id}">${titleCase(response.name)}</a></figcaption>
-        </figure>
-        </div>`
+                    <div class="pokemon-listing">
+                        <a href="pokemon.html?pokemon=${response.id}"><figure>
+                            <img src=${response.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(response.name)} />
+                            <figcaption>${titleCase(response.name)}</figcaption>
+                        </figure></a>
+                    </div>`
     pokemon.append(li)
 }
 
