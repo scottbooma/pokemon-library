@@ -1,9 +1,14 @@
 const loading = document.querySelector(".loading")
-const body = document.querySelector("body")
+const main = document.querySelector("main")
 const pokemonDetails = document.createElement("div")
 const pageTitle = document.querySelector("title")
 pokemonDetails.classList.add("pokemon-details")
-body.append(pokemonDetails)
+main.append(pokemonDetails)
+const returnHome = document.createElement("div")
+returnHome.classList.add("return")
+returnHome.innerHTML = `<a href="index.html">Return Home</a>`
+main.append(returnHome)
+
 
 function titleCase(string) {
     return string.toLowerCase().split("-").map(word => {
@@ -13,9 +18,9 @@ function titleCase(string) {
 
 function addPokemonDetails(pokemon) {
     pokemonDetails.innerHTML = `
-                                <figure>
-                                    <img src=${pokemon.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(pokemon.name)} />
-                                    <figcaption>${titleCase(pokemon.name)}</figcaption>
+                                <figure class="detail-figure">
+                                    <img src=${pokemon.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(pokemon.name)} class="detail-image" />
+                                    <figcaption class="detail-figcaption">${titleCase(pokemon.name)}</figcaption>
                                 </figure>
 
                                 <h2>Abilities</h2>
@@ -37,8 +42,7 @@ function addPokemonAbilities(pokemon) {
                 <span class="ability-name">${titleCase(response.name)}</span>
                 <span class="ability-short-description">${response.effect_entries.find(effect => {
                 return effect.language.name === "en"
-            }).short_effect}</span>
-                <a href="index.html" class="return">Return Home</a>`
+            }).short_effect}</span>`
             abilitiesList.append(li)
         }))
 }
@@ -56,6 +60,6 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
     }).catch(error => {
         const p = document.createElement("p")
         p.textContent = "You blacked out!"
-        body.append(p)
+        main.append(p)
     })
 
