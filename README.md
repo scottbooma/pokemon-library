@@ -1,5 +1,3 @@
-Check out the deployed webpage [here!](https://scottbooma.github.io/pokemon-library/)
-
 # PokeDex
 
 You're making a PokeDex, a list of Pokemon.
