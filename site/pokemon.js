@@ -14,7 +14,7 @@ function titleCase(string) {
 function addPokemonDetails(pokemon) {
     pokemonDetails.innerHTML = `
                                 <figure>
-                                    <img src=${pokemon.sprites.front_default} alt=${titleCase(pokemon.name)} />
+                                    <img src=${pokemon.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(pokemon.name)} />
                                     <figcaption>${titleCase(pokemon.name)}</figcaption>
                                 </figure>
 
@@ -37,7 +37,8 @@ function addPokemonAbilities(pokemon) {
                 <span class="ability-name">${titleCase(response.name)}</span>
                 <span class="ability-short-description">${response.effect_entries.find(effect => {
                 return effect.language.name === "en"
-            }).short_effect}</span>`
+            }).short_effect}</span>
+                <a href="index.html" class="return">Return Home</a>`
             abilitiesList.append(li)
         }))
 }
@@ -52,5 +53,9 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
         pageTitle.textContent = titleCase(parsedResponse.name)
         addPokemonDetails(parsedResponse)
         addPokemonAbilities(parsedResponse)
+    }).catch(error => {
+        const p = document.createElement("p")
+        p.textContent = "You blacked out!"
+        body.append(p)
     })
 

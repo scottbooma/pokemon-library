@@ -1,4 +1,4 @@
-
+const main = document.querySelector("main")
 const pokemon = document.querySelector(".pokemon")
 const loading = document.querySelector(".loading")
 const url = "https://pokeapi.co/api/v2/pokemon?limit=50"
@@ -22,7 +22,7 @@ function addPokemonListing(response) {
     li.innerHTML = `
             <div class="pokemon-listing">
         <figure>
-            <img src=${response.sprites.front_default} alt=${titleCase(response.name)} />
+            <img src=${response.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(response.name)} />
             <figcaption><a href="pokemon.html?pokemon=${response.id}">${titleCase(response.name)}</a></figcaption>
         </figure>
         </div>`
@@ -40,5 +40,9 @@ fetch(url).then(response => {
     responses.forEach(response => {
         addPokemonListing(response)
     })
+}).catch(error => {
+    const p = document.createElement("p")
+    p.textContent = "You blacked out!"
+    main.append(p)
 })
 
