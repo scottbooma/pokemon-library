@@ -1,6 +1,7 @@
 const loading = document.querySelector(".loading")
 const body = document.querySelector("body")
 const pokemonDetails = document.createElement("div")
+const pageTitle = document.querySelector("title")
 pokemonDetails.classList.add("pokemon-details")
 body.append(pokemonDetails)
 
@@ -48,6 +49,7 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${queryString.get("pokemon")}`)
         return response.json()
     }).then(parsedResponse => {
         loading.classList.add("hidden")
+        pageTitle.textContent = titleCase(parsedResponse.name)
         addPokemonDetails(parsedResponse)
         addPokemonAbilities(parsedResponse)
     })

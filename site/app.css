@@ -1,4 +1,21 @@
+@font-face {
+    font-family: pkmn;
+    src: url(PKMN\ RBYGSC.ttf);
+}
 
+body {
+    font-family: pkmn;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    list-style: none;
+}
 
 .hidden {
     display: none;

@@ -3,13 +3,13 @@ const pokemon = document.querySelector(".pokemon")
 const loading = document.querySelector(".loading")
 const url = "https://pokeapi.co/api/v2/pokemon?limit=50"
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    if (window.confirm("Only continue if you are a true Pokemon fan.")) {
-        window.alert("Welcome trainer!")
-    } else {
-        window.open("https://c.tenor.com/AJupCWglORwAAAAC/pokemon-team-rocket.gif", "_self")
-    }
-})
+// document.addEventListener("DOMContentLoaded", (event) => {
+//     if (window.confirm("Only continue if you are a true Pokemon fan.")) {
+//         window.alert("Welcome trainer!")
+//     } else {
+//         window.open("https://c.tenor.com/AJupCWglORwAAAAC/pokemon-team-rocket.gif", "_self")
+//     }
+// })
 
 function titleCase(string) {
     return string.toLowerCase().split("-").map(word => {
