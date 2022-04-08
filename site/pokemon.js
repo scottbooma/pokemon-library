@@ -1,9 +1,11 @@
 const loading = document.querySelector(".loading")
+const pageTitle = document.querySelector("title")
+
 const main = document.querySelector("main")
 const pokemonDetails = document.createElement("div")
-const pageTitle = document.querySelector("title")
 pokemonDetails.classList.add("pokemon-details")
 main.append(pokemonDetails)
+
 const returnHome = document.createElement("div")
 returnHome.classList.add("return")
 returnHome.innerHTML = `<a href="index.html">Return Home</a>`
@@ -18,13 +20,13 @@ function titleCase(string) {
 
 function addPokemonDetails(pokemon) {
     pokemonDetails.innerHTML = `
-                                <figure class="detail-figure">
-                                    <img src=${pokemon.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(pokemon.name)} class="detail-image" />
-                                    <figcaption class="detail-figcaption">${titleCase(pokemon.name)}</figcaption>
-                                </figure>
+        <figure class="detail-figure">
+            <img src=${pokemon.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(pokemon.name)} class="detail-image" />
+            <figcaption class="detail-figcaption">${titleCase(pokemon.name)}</figcaption>
+        </figure>
 
-                                <h2>Abilities</h2>
-                                `
+        <h2>Abilities</h2>
+    `
 
 }
 
@@ -42,7 +44,8 @@ function addPokemonAbilities(pokemon) {
                 <span class="ability-name">${titleCase(response.name)}</span>
                 <span class="ability-short-description">${response.effect_entries.find(effect => {
                 return effect.language.name === "en"
-            }).short_effect}</span>`
+            }).short_effect}</span>
+            `
             abilitiesList.append(li)
         }))
 }

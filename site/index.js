@@ -3,13 +3,16 @@ const pokemon = document.querySelector(".pokemon")
 const loading = document.querySelector(".loading")
 const url = "https://pokeapi.co/api/v2/pokemon?limit=50"
 
-// document.addEventListener("DOMContentLoaded", (event) => {
-//     if (window.confirm("Only continue if you are a true Pokemon fan.")) {
-//         window.alert("Welcome trainer!")
-//     } else {
-//         window.open("https://c.tenor.com/AJupCWglORwAAAAC/pokemon-team-rocket.gif", "_self")
-//     }
-// })
+if (localStorage.getItem("approval") === "granted") {
+} else {
+    document.addEventListener("DOMContentLoaded", (event) => {
+        if (window.confirm("Only continue if you are a true Pokemon fan.")) {
+            localStorage.setItem("approval", "granted")
+        } else {
+            window.open("https://c.tenor.com/AJupCWglORwAAAAC/pokemon-team-rocket.gif", "_self")
+        }
+    })
+}
 
 function titleCase(string) {
     return string.toLowerCase().split("-").map(word => {
@@ -20,12 +23,13 @@ function titleCase(string) {
 function addPokemonListing(response) {
     const li = document.createElement("li")
     li.innerHTML = `
-                    <div class="pokemon-listing">
-                        <a href="pokemon.html?pokemon=${response.id}"><figure>
-                            <img src=${response.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(response.name)} />
-                            <figcaption>${titleCase(response.name)}</figcaption>
-                        </figure></a>
-                    </div>`
+        <div class="pokemon-listing">
+            <a href="pokemon.html?pokemon=${response.id}"><figure>
+                <img src=${response.sprites.versions["generation-i"]["red-blue"].front_default} alt=${titleCase(response.name)} />
+                <figcaption>${titleCase(response.name)}</figcaption>
+            </figure></a>
+        </div>
+    `
     pokemon.append(li)
 }
 
